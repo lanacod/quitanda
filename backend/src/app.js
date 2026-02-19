@@ -6,9 +6,13 @@ const routes = require('./routes');
 const app = express();
 
 const corsOrigin = process.env.CORS_ORIGIN || '*';
+const origins =
+  corsOrigin === '*'
+    ? true
+    : corsOrigin.split(',').map((o) => o.trim()).filter(Boolean);
 app.use(
   cors({
-    origin: corsOrigin === '*' ? true : corsOrigin,
+    origin: origins,
   })
 );
 app.use(express.json());
